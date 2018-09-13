@@ -3,7 +3,7 @@
 
   "name": "Firewall Authentication",
   "description": "This extension will automaticall authenticate IIT(BHU) Firewall. utsav.krishnan.cse15@iitbhu.ac.in",
-  "version": "1.0",
+  "version": "0.10",
   "author": "Utsav Krishnan",
   "homepage_url": "https://github.com/ketankr9/Firewall-Authentication-chrome-extension",
   "update_url": "https://raw.githubusercontent.com/ketankr9/Firewall-Authentication-chrome-extension/master/updates.xml",
@@ -25,7 +25,7 @@
   ],
 
   "browser_action": {
-    "default_title": "Firewall Authentication",
+    "default_title": "Firewall Authenticator",
     "default_popup": "popup/popup.html"
   },
 
