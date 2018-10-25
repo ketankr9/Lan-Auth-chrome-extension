@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     chrome.storage.sync.get({
-      mUsername: '',
-      mPassword: ''
+      musername: '',
+      mpassword: ''
       }, function(items) {
-        document.querySelector('#ft_un').value = items.mUsername;
-        document.querySelector('#ft_pd').value = items.mPassword;
+        document.querySelector('#ft_un').value = items.musername;
+        document.querySelector('#ft_pd').value = items.mpassword;
         document.getElementsByTagName('input')[5].click();
     });
 
