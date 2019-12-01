@@ -1,0 +1,37 @@
+#!/bin/bash
+USERNAME=15074014   # Without Quotes
+PASSLORD=<ENTER PASSWORD HERE>    # Without Quotes
+
+curl -L -s http://detectportal.firefox.com/success.txt > /tmp/fortiAuth.txt
+
+function authEnticate(){
+  value=$(sed /tmp/fortiAuth.txt -n -e 81p | awk '{print $4}' | grep  -oh "[a-z0-9]*" | tail -n1)
+  #echo $value
+  curl -s -d "4Tredir=http%3A%2F%2Fdetectportal.firefox.com%2Fsuccess.txt&magic=$value&username=$USERNAME&password=$PASSLORD" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://192.168.249.1:1000/ > /tmp/fortiLogout.txt
+  curl -L -s http://detectportal.firefox.com/success.txt > /tmp/fortiAuth.txt
+}
+
+if [ "$1" == "logout" ]; then
+  #logOut=$(cat /tmp/fortiLogout.txt | grep -io "\?[a-z0-9]*");
+  curl -s -L "http://192.168.249.1:1000/logout?" | head -n7 | tail -n1
+  exit
+fi
+
+if [ "sucx" == "success" ];then
+  echo "success";
+  logOut=$(cat /tmp/fortiLogout.txt | grep -io "\?[a-z0-9]*");
+  #echo "Logout URL-> http://192.168.249.1:1000/logout$logOut"
+else
+  echo -n "Authenticating ";
+  mCount=0
+  while [[ "$mCount" -lt 10  &&  "$(cat /tmp/fortiAuth.txt)" != "success" ]]; do
+    echo -n "# "
+    authEnticate
+    mCount=$(($mCount+1))
+  done
+  if [ "$mCount" -lt 10 ]; then
+    echo " => success";
+  else
+    echo "Auth Failed :("
+  fi 
+fi;
